@@ -82,16 +82,22 @@ const decrementTimer = () => {
     }
 
     const wpm = (correctlyTypedWords / 30) * 60;
-    document.querySelector(".words-per-minute").textContent = `WPM: ${parseInt(wpm)}`;
+    document.querySelector(".words-per-minute").innerHTML = `<h3 class="stat-title">WPM</h3><span class="stat-description">${parseInt(wpm)}</span>`;
 
     // Calculate accuracy
-    const correctlyEnteredCharacters = currentCharIndex - wrongEnteredChars; console.log(correctlyEnteredCharacters)
+    const correctlyEnteredCharacters = currentCharIndex - wrongEnteredChars;
+    console.log(correctlyEnteredCharacters);
     const accuracyPercentage = (correctlyEnteredCharacters * 100) / currentCharIndex;
-    document.querySelector(".accuracy").textContent = `Accuracy: ${parseInt(accuracyPercentage)}%`;
+    document.querySelector(".accuracy").innerHTML = `<h3 class="stat-title">Accuracy</h3><span class="stat-description">${parseInt(
+      accuracyPercentage
+    )}%</span>`;
+
+    // Time used
+    document.querySelector(".time").innerHTML = `<h3 class="stat-title">Time Elapsed</h3><span class="stat-description">30s</span>`;
 
     // Total characters typed
     const totalCharactersTyped = currentCharIndex;
-    document.querySelector('.total-characters-typed').textContent = `Total Characters Typed: ${totalCharactersTyped}`;
+    document.querySelector(".total-characters-typed").innerHTML = `<h3 class="stat-title">Total Characters Typed</h3><span class="stat-description"><span class="stat-description">${totalCharactersTyped}</span>`;
   }
 };
 
