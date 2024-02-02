@@ -21,7 +21,7 @@ const checkKeydown = (event) => {
   if (key.match(/[a-z]/i) && intervalId === null) {
     startTimer();
   }
-  
+
   const wordsWrapper = document.querySelector(".words-wrapper");
   const text = wordsWrapper.innerText;
 
@@ -43,13 +43,24 @@ const checkKeydown = (event) => {
   const updatedText = text
     .split("")
     .map((char, index) => {
-      if (correctLetterIndices.has(index)) {
-        return `<span class="correct-key">${char}</span>`;
-      } else if (incorrectLetterIndices.has(index)) {
-        return `<span class="incorrect-key">${char}</span>`;
-      } else {
+      if (index > currentLetterIndex) {
         return char;
       }
+
+      let classList = "";
+      if (correctLetterIndices.has(index)) {
+        classList += "correct-key";
+      }
+
+      if (incorrectLetterIndices.has(index)) {
+        classList += "incorrect-key";
+      }
+
+      if (index === currentLetterIndex) {
+        classList += "current-index-indicator";
+      }
+
+      return `<span class="${classList}">${char}</span>`;
     })
     .join("");
 

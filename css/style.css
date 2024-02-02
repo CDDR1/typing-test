@@ -6,11 +6,12 @@
 }
 
 body {
-  background-color: #373737;;
+  background-color: #373737;
 }
 
 .words-wrapper {
   color: #7f7f7f;
+  padding: 15px;
 }
 
 .correct-key {
@@ -20,4 +21,19 @@ body {
 .incorrect-key {
   color: red;
   text-decoration: underline;
+}
+
+.current-index-indicator {
+  position: relative;
+  color: #7f7f7f;
+}
+
+.current-index-indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 2px;
+  height: 100%;
+  background-color: yellow;
 }
