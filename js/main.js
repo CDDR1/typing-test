@@ -22,14 +22,24 @@ const checkKeydown = (event) => {
     startTimer();
   }
 
+  let isBackspace = key === "Backspace";
+  if (isBackspace && intervalId !== null && currentLetterIndex > 0) {
+    currentLetterIndex--;
+    if (correctLetterIndices.has(currentLetterIndex)) correctLetterIndices.delete(currentLetterIndex);
+    if (incorrectLetterIndices.has(currentLetterIndex)) incorrectLetterIndices.delete(currentLetterIndex);
+  }
+
   const wordsWrapper = document.querySelector(".words-wrapper");
   const text = wordsWrapper.innerText;
-  if (key === text[currentLetterIndex]) {
-    correctLetterIndices.add(currentLetterIndex);
-  } else {
-    incorrectLetterIndices.add(currentLetterIndex);
+
+  if (!isBackspace) {
+    if (key === text[currentLetterIndex]) {
+      correctLetterIndices.add(currentLetterIndex);
+    } else {
+      incorrectLetterIndices.add(currentLetterIndex);
+    }
+    currentLetterIndex++;
   }
-  currentLetterIndex++;
 
   const updatedText = text
     .split("")
@@ -45,6 +55,7 @@ const checkKeydown = (event) => {
     .join("");
 
   wordsWrapper.innerHTML = updatedText;
+  console.log(currentLetterIndex);
 };
 
 const body = document.querySelector("body");
