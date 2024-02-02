@@ -1,5 +1,6 @@
 let intervalId = null;
-let currentLetterIndex = 0;
+let currentCharIndex = 0;
+let wrongEnteredChars = 0;
 const correctLetterIndices = new Set();
 const incorrectLetterIndices = new Set();
 const wordsWrapper = document.querySelector(".words-wrapper");
@@ -12,7 +13,7 @@ const getUpdatedText = () => {
   return text
     .split("")
     .map((char, index) => {
-      if (index > currentLetterIndex) {
+      if (index > currentCharIndex) {
         return char;
       }
 
@@ -25,7 +26,7 @@ const getUpdatedText = () => {
         classList += "incorrect-key";
       }
 
-      if (index === currentLetterIndex) {
+      if (index === currentCharIndex) {
         classList += "current-index-indicator";
       }
 
@@ -38,7 +39,7 @@ document.querySelector(".start-again-btn").addEventListener("click", () => {
   wordsWrapper.classList.remove("dont-display");
   stats.classList.add("dont-display");
   timer.textContent = 30;
-  currentLetterIndex = 0;
+  currentCharIndex = 0;
   correctLetterIndices.clear();
   incorrectLetterIndices.clear();
   wordsWrapper.innerHTML = getUpdatedText();
@@ -56,6 +57,11 @@ const decrementTimer = () => {
   if (newTimerValue === 0) {
     wordsWrapper.classList.add("dont-display");
     stats.classList.remove("dont-display");
+
+    // Calculate accuracy
+    const correctlyEnteredCharacters = currentCharIndex - wrongEnteredChars;
+    const accuracyPercentage = (correctlyEnteredCharacters * 100) / currentCharIndex;
+    document.querySelector('.accuracy').textContent = `Accuracy: ${parseInt(accuracyPercentage)}%`
   }
 };
 
@@ -72,18 +78,19 @@ const checkKeydown = (event) => {
   const text = wordsWrapper.innerText;
 
   if (key === "Backspace") {
-    if (intervalId !== null && currentLetterIndex > 0) {
-      currentLetterIndex--;
-      if (correctLetterIndices.has(currentLetterIndex)) correctLetterIndices.delete(currentLetterIndex);
-      if (incorrectLetterIndices.has(currentLetterIndex)) incorrectLetterIndices.delete(currentLetterIndex);
+    if (intervalId !== null && currentCharIndex > 0) {
+      currentCharIndex--;
+      if (correctLetterIndices.has(currentCharIndex)) correctLetterIndices.delete(currentCharIndex);
+      if (incorrectLetterIndices.has(currentCharIndex)) incorrectLetterIndices.delete(currentCharIndex);
     }
   } else {
-    if (key === text[currentLetterIndex]) {
-      correctLetterIndices.add(currentLetterIndex);
+    if (key === text[currentCharIndex]) {
+      correctLetterIndices.add(currentCharIndex);
     } else {
-      incorrectLetterIndices.add(currentLetterIndex);
+      incorrectLetterIndices.add(currentCharIndex);
+      wrongEnteredChars++;
     }
-    currentLetterIndex++;
+    currentCharIndex++;
   }
 
   wordsWrapper.innerHTML = getUpdatedText();
