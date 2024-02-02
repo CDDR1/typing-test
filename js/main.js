@@ -132,6 +132,10 @@ const checkKeydown = (event) => {
     startTimer();
   }
 
+  if (key === " ") {
+    event.preventDefault();
+  }
+
   const text = wordsWrapper.innerText;
 
   if (key === "Backspace") {
