@@ -58,10 +58,34 @@ const decrementTimer = () => {
     wordsWrapper.classList.add("dont-display");
     stats.classList.remove("dont-display");
 
+    // Calculate Words Per Minute
+    const words = wordsWrapper.textContent;
+    let correctlyTypedWords = 0;
+    let isCorrectlyTypedWord = true;
+
+    for (let i = 0; i < words.length; i++) {
+      if (i === currentCharIndex) {
+        break;
+      }
+      if (words[i] === " ") {
+        if (isCorrectlyTypedWord) {
+          correctlyTypedWords++;
+        } else {
+          isCorrectlyTypedWord = true;
+        }
+      }
+      if (incorrectLetterIndices.has(i)) {
+        isCorrectlyTypedWord = false;
+      }
+    }
+
+    const wpm = (correctlyTypedWords / 30) * 60;
+    document.querySelector(".words-per-minute").textContent = `WPM: ${parseInt(wpm)}`;
+
     // Calculate accuracy
     const correctlyEnteredCharacters = currentCharIndex - wrongEnteredChars;
     const accuracyPercentage = (correctlyEnteredCharacters * 100) / currentCharIndex;
-    document.querySelector('.accuracy').textContent = `Accuracy: ${parseInt(accuracyPercentage)}%`
+    document.querySelector(".accuracy").textContent = `Accuracy: ${parseInt(accuracyPercentage)}%`;
   }
 };
 
