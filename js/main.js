@@ -21,18 +21,17 @@ const checkKeydown = (event) => {
   if (key.match(/[a-z]/i) && intervalId === null) {
     startTimer();
   }
-
-  let isBackspace = key === "Backspace";
-  if (isBackspace && intervalId !== null && currentLetterIndex > 0) {
-    currentLetterIndex--;
-    if (correctLetterIndices.has(currentLetterIndex)) correctLetterIndices.delete(currentLetterIndex);
-    if (incorrectLetterIndices.has(currentLetterIndex)) incorrectLetterIndices.delete(currentLetterIndex);
-  }
-
+  
   const wordsWrapper = document.querySelector(".words-wrapper");
   const text = wordsWrapper.innerText;
 
-  if (!isBackspace) {
+  if (key === "Backspace") {
+    if (intervalId !== null && currentLetterIndex > 0) {
+      currentLetterIndex--;
+      if (correctLetterIndices.has(currentLetterIndex)) correctLetterIndices.delete(currentLetterIndex);
+      if (incorrectLetterIndices.has(currentLetterIndex)) incorrectLetterIndices.delete(currentLetterIndex);
+    }
+  } else {
     if (key === text[currentLetterIndex]) {
       correctLetterIndices.add(currentLetterIndex);
     } else {
@@ -55,7 +54,6 @@ const checkKeydown = (event) => {
     .join("");
 
   wordsWrapper.innerHTML = updatedText;
-  console.log(currentLetterIndex);
 };
 
 const body = document.querySelector("body");
