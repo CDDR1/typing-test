@@ -86,6 +86,10 @@ const decrementTimer = () => {
     const correctlyEnteredCharacters = currentCharIndex - wrongEnteredChars;
     const accuracyPercentage = (correctlyEnteredCharacters * 100) / currentCharIndex;
     document.querySelector(".accuracy").textContent = `Accuracy: ${parseInt(accuracyPercentage)}%`;
+
+    // Total characters typed
+    const totalCharactersTyped = currentCharIndex;
+    document.querySelector('.total-characters-typed').textContent = `Total Characters Typed: ${totalCharactersTyped}`;
   }
 };
 
