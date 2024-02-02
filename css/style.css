@@ -3,7 +3,6 @@
   padding: 0;
   font-family: sans-serif;
   font-size: 25px;
-  /* color: #e1e1e1; */
 }
 
 body {
@@ -20,6 +19,7 @@ body {
   max-width: 70%;
   line-height: 37px;
   letter-spacing: 1.5px;
+  overflow: hidden;
 }
 
 .timer {

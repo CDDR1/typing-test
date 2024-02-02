@@ -6,6 +6,21 @@ const incorrectLetterIndices = new Set();
 const wordsWrapper = document.querySelector(".words-wrapper");
 const stats = document.querySelector(".stats");
 const timer = document.querySelector(".timer");
+const API_URL = "https://random-word-api.herokuapp.com/word?number=150";
+
+const getRandomWords = async () => {
+  const response = await fetch(API_URL);
+  const words = await response.json();
+  return words;
+};
+
+const populateRandomWordsInHTML = async () => {
+  const words = await getRandomWords();
+  const formattedWords = words
+    .map((word, index) => (index === 0 ? `<span class="current-index-indicator">${word.charAt(0)}</span>${word.slice(1)}` : word))
+    .join(" ");
+  wordsWrapper.innerHTML = formattedWords;
+};
 
 const getUpdatedText = () => {
   const text = wordsWrapper.innerText;
@@ -46,6 +61,7 @@ document.querySelector(".start-again-btn").addEventListener("click", () => {
   wordsWrapper.innerHTML = getUpdatedText();
   wrongEnteredChars = 0;
   timer.classList.remove("dont-display");
+  populateRandomWordsInHTML();
 });
 
 const decrementTimer = () => {
@@ -58,6 +74,7 @@ const decrementTimer = () => {
   timer.textContent = newTimerValue;
 
   if (newTimerValue === 0) {
+    wordsWrapper.innerHTML = "";
     wordsWrapper.classList.add("dont-display");
     timer.classList.add("dont-display");
     stats.classList.remove("dont-display");
@@ -138,3 +155,4 @@ const checkKeydown = (event) => {
 
 const body = document.querySelector("body");
 body.addEventListener("keydown", (event) => checkKeydown(event));
+populateRandomWordsInHTML();
