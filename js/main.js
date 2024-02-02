@@ -36,6 +36,7 @@ const getUpdatedText = () => {
 };
 
 document.querySelector(".start-again-btn").addEventListener("click", () => {
+  intervalId = null;
   wordsWrapper.classList.remove("dont-display");
   stats.classList.add("dont-display");
   timer.textContent = 30;
