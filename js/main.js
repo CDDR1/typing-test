@@ -74,7 +74,6 @@ const decrementTimer = () => {
   timer.textContent = newTimerValue;
 
   if (newTimerValue === 0) {
-    wordsWrapper.innerHTML = "";
     wordsWrapper.classList.add("dont-display");
     timer.classList.add("dont-display");
     stats.classList.remove("dont-display");
@@ -100,12 +99,13 @@ const decrementTimer = () => {
       }
     }
 
+    wordsWrapper.innerHTML = "";
+    
     const wpm = (correctlyTypedWords / 30) * 60;
     document.querySelector(".words-per-minute").innerHTML = `<h3 class="stat-title">WPM</h3><span class="stat-description">${parseInt(wpm)}</span>`;
 
     // Calculate accuracy
     const correctlyEnteredCharacters = currentCharIndex - wrongEnteredChars;
-    console.log(correctlyEnteredCharacters);
     const accuracyPercentage = (correctlyEnteredCharacters * 100) / currentCharIndex;
     document.querySelector(".accuracy").innerHTML = `<h3 class="stat-title">Accuracy</h3><span class="stat-description">${parseInt(
       accuracyPercentage
