@@ -65,7 +65,7 @@ const startTimer = () => {
 
 const checkKeydown = (event) => {
   const key = event.key;
-  if (key.match(/[a-z]/i) && intervalId === null) {
+  if (intervalId === null) {
     startTimer();
   }
 
