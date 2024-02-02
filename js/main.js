@@ -8,6 +8,22 @@ const stats = document.querySelector(".stats");
 const timer = document.querySelector(".timer");
 const API_URL = "https://random-word-api.herokuapp.com/word?number=150";
 
+const loadingSpinner = `
+<div class="loading-spinner dont-displa">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`;
+
 const getRandomWords = async () => {
   const response = await fetch(API_URL);
   const words = await response.json();
@@ -58,7 +74,7 @@ document.querySelector(".start-again-btn").addEventListener("click", () => {
   currentCharIndex = 0;
   correctLetterIndices.clear();
   incorrectLetterIndices.clear();
-  wordsWrapper.innerHTML = getUpdatedText();
+  wordsWrapper.innerHTML = loadingSpinner;
   wrongEnteredChars = 0;
   timer.classList.remove("dont-display");
   populateRandomWordsInHTML();
@@ -100,7 +116,7 @@ const decrementTimer = () => {
     }
 
     wordsWrapper.innerHTML = "";
-    
+
     const wpm = (correctlyTypedWords / 30) * 60;
     document.querySelector(".words-per-minute").innerHTML = `<h3 class="stat-title">WPM</h3><span class="stat-description">${parseInt(wpm)}</span>`;
 
