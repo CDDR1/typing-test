@@ -44,6 +44,7 @@ document.querySelector(".start-again-btn").addEventListener("click", () => {
   correctLetterIndices.clear();
   incorrectLetterIndices.clear();
   wordsWrapper.innerHTML = getUpdatedText();
+  wrongEnteredChars = 0;
 });
 
 const decrementTimer = () => {
@@ -84,7 +85,7 @@ const decrementTimer = () => {
     document.querySelector(".words-per-minute").textContent = `WPM: ${parseInt(wpm)}`;
 
     // Calculate accuracy
-    const correctlyEnteredCharacters = currentCharIndex - wrongEnteredChars;
+    const correctlyEnteredCharacters = currentCharIndex - wrongEnteredChars; console.log(correctlyEnteredCharacters)
     const accuracyPercentage = (correctlyEnteredCharacters * 100) / currentCharIndex;
     document.querySelector(".accuracy").textContent = `Accuracy: ${parseInt(accuracyPercentage)}%`;
 
