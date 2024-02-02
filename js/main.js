@@ -45,6 +45,7 @@ document.querySelector(".start-again-btn").addEventListener("click", () => {
   incorrectLetterIndices.clear();
   wordsWrapper.innerHTML = getUpdatedText();
   wrongEnteredChars = 0;
+  timer.classList.remove("dont-display");
 });
 
 const decrementTimer = () => {
@@ -58,6 +59,7 @@ const decrementTimer = () => {
 
   if (newTimerValue === 0) {
     wordsWrapper.classList.add("dont-display");
+    timer.classList.add("dont-display");
     stats.classList.remove("dont-display");
 
     // Calculate Words Per Minute
@@ -97,7 +99,9 @@ const decrementTimer = () => {
 
     // Total characters typed
     const totalCharactersTyped = currentCharIndex;
-    document.querySelector(".total-characters-typed").innerHTML = `<h3 class="stat-title">Total Characters Typed</h3><span class="stat-description"><span class="stat-description">${totalCharactersTyped}</span>`;
+    document.querySelector(
+      ".total-characters-typed"
+    ).innerHTML = `<h3 class="stat-title">Total Characters Typed</h3><span class="stat-description"><span class="stat-description">${totalCharactersTyped}</span>`;
   }
 };
 
